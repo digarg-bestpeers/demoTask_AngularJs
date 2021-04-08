@@ -22,10 +22,17 @@ app.controller('contactBookController', ['$scope', function($scope){
 
     $scope.book = []
 
+    var myContactBook = localStorage['contactList']
+
+    if(myContactBook !== undefined){
+        $scope.book = JSON.parse(myContactBook)
+    }
+
     $scope.doAdd = function(){
         if($scope.id != null){
             $scope.book[$scope.id].name = $scope.name
             $scope.book[$scope.id].phoneNumber = $scope.phoneNumber
+            localStorage['contactList'] = JSON.stringify($scope.book)
             $scope.id = null
             $scope.name = ''
             $scope.phoneNumber = ''
@@ -33,11 +40,13 @@ app.controller('contactBookController', ['$scope', function($scope){
             $scope.book.push({name:$scope.name, phoneNumber:$scope.phoneNumber})
             $scope.name = ''
             $scope.phoneNumber = ''
+            localStorage['contactList'] = JSON.stringify($scope.book)
         }
     }
 
     $scope.doDelete = function(contact){
-        $scope.book.splice($scope.book.indexOf(contact),1)    
+        $scope.book.splice($scope.book.indexOf(contact),1)
+        localStorage['contactList'] = JSON.stringify($scope.book)   
     }
 
     $scope.doEdit = function(contact){
