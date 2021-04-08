@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="index.js"></script>
+</head>
+<body ng-app="app">
+    <div ng-controller='contactBook'>
+        <form ng-submit="doAdd()">
+            Name: <input type="text" ng-model='name'> <br><br>
+            Phone Number: <input type="text" ng-model='phoneNumber'> <br><br>
+            <input type="hidden" ng-model="id"> <br><br>
+            <button>Add</button>
+        </form>
+        <hr>
+        <div>
+            Search: <input type="text" placeholder="Search Name" ng-model="searchContact">
+            <br><br>
+        </div>
+        <table border="1px">
+            <thead>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contact in book | filter:searchContact">
+                    <td>{{contact.name}}</td>
+                    <td>{{contact.phoneNumber}}</td>
+                    <td>
+                        <button ng-click="doEdit(contact)">Edit</button> | 
+                        <button ng-click="doDelete(contact)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+</body>
+</html>
