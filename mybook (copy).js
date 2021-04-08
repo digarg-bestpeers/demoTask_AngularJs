@@ -23,27 +23,29 @@ app.controller('contactBookController', ['$scope', function($scope){
     $scope.book = []
 
     $scope.doAdd = function(){
-        if($scope.id != null){
-            $scope.book[$scope.id].name = $scope.name
-            $scope.book[$scope.id].phoneNumber = $scope.phoneNumber
-            $scope.id = null
-            $scope.name = ''
-            $scope.phoneNumber = ''
-        } else {
-            $scope.book.push({name:$scope.name, phoneNumber:$scope.phoneNumber})
-            $scope.name = ''
-            $scope.phoneNumber = ''
-        }
+        $scope.book.push({id:$scope.id++, name:$scope.name, phoneNumber:$scope.phoneNumber})
+        $scope.name = ''
+        $scope.phoneNumber = ''
+        console.log($scope.book)
     }
 
     $scope.doDelete = function(contact){
-        $scope.book.splice($scope.book.indexOf(contact),1)    
+        if($scope.book[$scope.book.indexOf(contact)].id == contact.id){
+            $scope.book.splice($scope.book.indexOf(contact),1)
+        }
     }
 
     $scope.doEdit = function(contact){
-        $scope.name = contact.name
-        $scope.phoneNumber = contact.phoneNumber
-        $scope.id = $scope.book.indexOf(contact)
+        if($scope.book[$scope.book.indexOf(contact)].id == contact.id){
+            $scope.name = contact.name
+            $scope.phoneNumber = contact.phoneNumber
+            $scope.tempid = $scope.id 
+            $scope.id = contact.id
+        }
+    }
+
+    $scope.doSave = function(){
+        console.log("btn clicked", $scope.id)
     }
 
 }])

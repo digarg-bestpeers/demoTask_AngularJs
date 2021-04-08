@@ -6,7 +6,7 @@
     </form>
     <br><br>
 
-    <table class="table">
+    <table class="table" ng-if="book.length > 0">
         <thead>
             <th>Name</th>
             <th>Phone Number</th>
@@ -17,8 +17,8 @@
                 <td>{{contact.name}}</td>
                 <td>{{contact.phoneNumber}}</td>
                 <td>
-                    <button>Edit</button> |
-                    <button ng-click="doDelete(contact.id)">Delete</button>
+                    <button ng-click="doEdit(contact)">Edit</button> |
+                    <button ng-click="doDelete(contact)">Delete</button>
                 </td>
             </tr>
         </tbody>
